@@ -7,7 +7,7 @@ import { Technews } from '../../types/technews'
 import { TC_HEADER } from '../../constant/config'
 import { zhTimeStringToStandard, normalizeDate } from '../date'
 
-import { technewsService } from '../../services/technews'
+import { initializeTechnewsService } from '../../services/technews'
 
 function extractDataFromHtml(html: string): Technews[] {
 	const $ = cheerio.load(html)
@@ -65,6 +65,7 @@ export async function crawlTechNews(): Promise<void> {
 					console.warn(`release_time格式錯誤: ${article.release_time}`)
 					return
 				}
+				const technewsService = await initializeTechnewsService()
 				await technewsService.createPost({ ...article, release_time: parsedDate })
 			}
 			await new Promise((resolve) => setTimeout(resolve, sleepTime))

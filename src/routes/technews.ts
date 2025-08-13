@@ -1,11 +1,14 @@
 import { Router } from 'express'
-import { technewsController } from '../controller/technews'
+import TechnewsController from '../controller/technews'
 
-const router = Router()
+// 1. 改為導出一個函式，它接收 Controller 作為參數
+export const createTechnewsRouter = (technewsController: TechnewsController): Router => {
+	const router = Router()
 
-router.post('/posts', technewsController.create)
-router.get('/posts/:id', technewsController.get)
-router.put('/posts/:id', technewsController.update)
-router.delete('/posts/:id', technewsController.delete)
+	router.post('/technews', technewsController.create)
+	router.get('/technews/:id', technewsController.get)
+	router.put('/technews/:id', technewsController.update)
+	router.delete('/technews/:id', technewsController.delete)
 
-export default router
+	return router
+}
