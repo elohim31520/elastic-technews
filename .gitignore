@@ -1,0 +1,15 @@
+/node_modules
+todo.txt
+.env
+private.key
+public.key
+symbol.json
+/log
+**/.DS_Store
+strategy.js
+**/token.txt
+test/marketIndex/momentum_data.xlsx
+/dist
+/Archive
+src/scripts/index.html
+src/scripts/token
