@@ -7,6 +7,16 @@ class TechnewsService {
 
 	constructor() {
 		this.client = new Client({ node: 'http://localhost:9200' })
+		try {
+			this.client.indices.exists({ index: ELASTICSEARCH_INDEX.TECHNEWS }).then((exists) => {
+				if (!exists) {
+					this.client.indices.create({ index: ELASTICSEARCH_INDEX.TECHNEWS })
+					console.log(`索引 '${ELASTICSEARCH_INDEX.TECHNEWS}' 建立成功！`)
+				}
+			})
+		} catch (error) {
+			console.error('建立索引時發生錯誤:', error)
+		}
 	}
 
 	async createPost({ title, web_url, publisher, release_time }: Technews) {
